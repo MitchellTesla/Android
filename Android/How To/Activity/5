@@ -1,0 +1,21 @@
+import java.util.List;
+
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.content.Context;
+
+class ActivityUtils {
+  public static boolean isAppRunningTop(Context context) {
+      
+      ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+      List<RunningTaskInfo> list = am.getRunningTasks(1);
+      if (list.size() > 0) {
+          String packageName = context.getPackageName();
+          RunningTaskInfo topRunningTaskinfo  = list.get(0);
+          if (topRunningTaskinfo.topActivity.getPackageName().equals(packageName)) {
+              return true;
+          }
+      }
+      return false;
+  }
+}
