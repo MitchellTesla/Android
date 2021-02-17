@@ -1,0 +1,66 @@
+We need to understand views, activities, fragments, intents, content providers, services, and the AndroidManifest.xml file when you build applications for Android.
+
+View
+Views are user interface (UI) elements that form the basic building blocks of a user interface.
+
+A view can be a button, a label, a text field, or many other UI elements.
+
+Views are also used as containers for views, which means there's usually a hierarchy of views in the UI.
+
+Activity
+An activity is a UI concept that usually represents a single screen.
+
+It generally contains one or more views.
+
+
+
+
+ 
+
+Fragment
+Fragments are like sub-activities, and an activity can display one or more fragments on the screen at the same time.
+
+When a screen is small, an activity is more likely to contain just one fragment, and that fragment can be the same one used within larger screens.
+
+Intent
+An intent generically defines an "intention" to do some work.
+
+Intents encapsulate several concepts. We can use intents to perform the following tasks:
+
+Broadcast a message.
+Start a service.
+Launch an activity.
+Display a web page or a list of contacts.
+Dial a phone number or answer a phone call.
+Intents are not always initiated by your application.
+
+Intents are also used by the system to notify your application of specific events, such as the arrival of a text message.
+
+Intents can be explicit or implicit. If you simply say that you want to display a URL, the system decides what component will fulfill the intention.
+
+We can also provide specific information about what should handle the intention.
+
+Intents loosely couple the action and action handler.
+
+
+
+
+ 
+
+Content Provider
+Android defines a standard way for applications to share data without exposing the underlying storage.
+
+Through content providers, you can expose your data and have your applications use data from other applications.
+
+Service
+Services in Android resemble services you see in Windows or other platforms.
+
+Services are background processes that can run for a long time.
+
+Android defines two types of services:
+
+local services and
+remote services.
+Local services are only accessible by the application that is hosting the service.
+
+Remote services are services that are meant to be accessed remotely by other applications running on the device.
