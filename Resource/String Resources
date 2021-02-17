@@ -1,0 +1,29 @@
+Android allows you to define strings in one or more XML resource files.
+
+These XML files reside in the /res/values subdirectory.
+
+You can name the XML files the way you like, although you commonly see the file name as strings.xml.
+
+Example
+The following code shows an example of a string-resource file.
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="hello">hello</string>
+   <string name="app_name">hello appname</string>
+</resources>
+
+
+
+ 
+
+Note
+When this file is created or updated, the Eclipse ADT plug-in automatically creates or updates a Java class in your application's root package called R.java with unique IDs for the two string resources specified.
+
+Regardless of the number of resource files, there is only one R.java file.
+
+The generated IDs in R.java point to ints rather than strings.
+
+Most methods that take strings also take these resource identifiers as inputs. Android resolves those ints to strings where necessary.
+
+Android takes any number of arbitrary files as long as the structure of the XML file looks like the xml above and the files reside in the /res/values subdirectory
