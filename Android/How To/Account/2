@@ -1,0 +1,19 @@
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
+public class Main {
+  public static String[] getAccountsNamesByType(Context context, String type){    
+    Account[] accounts = getAccountsByType(context, type);
+      final int size = accounts.length;
+      String[] names = new String[size];
+      for (int i = 0; i < size; i++) {
+        names[i] = accounts[i].name;
+      }
+      return names;
+  }
+  public static Account[] getAccountsByType(Context context, String type){
+    final AccountManager manager = AccountManager.get(context);
+      final Account[] accounts = manager.getAccountsByType(type);      
+      return accounts;
+  }
+}
