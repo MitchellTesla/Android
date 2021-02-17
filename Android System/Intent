@@ -1,0 +1,168 @@
+An intent is an action with its associated data.
+
+Android uses intents to invoke components. The components in Android includes
+
+activities (UI components),
+services (background code),
+broadcast receivers, and
+content providers.
+You can use intents to invoke external applications or internal components.
+
+You can use intents to raise events so that others can respond in a manner similar to a publish-and-subscribe model.
+
+You can use intents to raise alarms.
+
+
+
+
+ 
+
+Example
+The following code shows how to use Intent to open an Activity.
+
+Imagine you've the following activity:
+
+public class BasicViewActivity extends Activity
+{
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        ...
+    }
+}
+Then you register this activity in the manifest file, making it available for other applications to invoke.
+
+<activity android:name=".BasicViewActivity"
+          android:label="Basic View Tests">
+ <intent-filter>
+   <action android:name="com.java2s.intent.action.ShowBasicView"/>
+   <category android:name="android.intent.category.DEFAULT" />
+ </intent-filter>
+</activity>
+
+To use an intent to invoke this BasicViewActivity:
+
+public static void invokeMyApplication(Activity parentActivity)
+{
+   String actionName= "com.java2s.intent.action.ShowBasicView";
+   Intent intent = new Intent(actionName);
+   parentActivity.startActivity(intent);
+}
+
+
+
+ 
+
+Note
+The general convention for an action name is
+
+<your-package-name>.intent.action.YOUR_ACTION_NAME
+BasicViewActivity can get the intent that invoked it.
+
+class BasicViewActivity extends Activity
+{
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        ...
+        ...
+        Intent intent = this.getIntent();
+        if (intent == null)
+        {
+            Log.d("test tag", "This activity is invoked without an intent");
+        }
+    }
+}
+Intent Composition
+An intent has fours parts:
+
+name,
+data
+type
+category
+In Android, intents usually come in pairs: action and data.
+
+The action describes what is to be performed, such as editing an item, viewing the content of an item, and so on.
+
+The data specifies what is affected, such as a person in the Contacts database.
+
+The data is specified as an Uri object.
+
+Some examples of action are as follows:
+
+ACTION_VIEW
+ACTION_DIAL
+ACTION_PICK
+Some examples of data include the following:
+
+www.java2s.com
+tel:+9991231234
+geo:37.999900,-122.999970
+content://contacts
+The action and data pair describes the operation to be performed.
+For example, to dial a phone number, you would use the pair ACTION_DIAL/tel:+999234567.
+
+To display a list of contacts stored in your phone, you use the pair ACTION_VIEW/content://contacts.
+
+To pick a contact from the list of contacts, you use the pair ACTION_PICK/content://contacts.
+
+Use Intent Categories
+You can group your activities into categories by using the <category> element in the intent filter.
+
+AndroidManifest.xml file:
+
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+              package="com.java2s.Intents"
+              android:versionCode="1"
+              android:versionName="1.0" >
+
+              <uses-sdk android:minSdkVersion="14" />
+              <uses-permission android:name="android.permission.CALL_PHONE"/>
+              <uses-permission android:name="android.permission.INTERNET"/>
+              <application
+                  android:icon="@drawable/ic_launcher"
+                  android:label="@string/app_name" >
+                  <activity
+                      android:label="@string/app_name"
+                      android:name=".IntentsActivity" >
+                      <intent-filter >
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+
+                  <activity android:name=".MyBrowserActivity"
+                            android:label="@string/app_name">
+                      <intent-filter>
+                          <action android:name="android.intent.action.VIEW" />
+                          <action android:name="com.java2s.MyBrowser" />
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <category android:name="com.java2s.Apps" />
+                          <data android:scheme="http" />
+                      </intent-filter>
+                  </activity>
+
+              </application>
+
+          </manifest>
+
+The following code will directly invoke the MyBrowerActivity activity:
+
+Intent i = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse ("http://www.java2s.com"));
+i.addCategory("com.java2s.Apps");
+startActivity(Intent.createChooser(i, "Open URL using..."));
+
+If you omit the addCategory() statement, the preceding code will still invoke the MyBrowerActivity activity because it will still match the default category android.intent.category.DEFAULT.
+
+For the following code it does not match the category defined in the intent filter, therefore no activity will be launched:
+
+The following code references category com.java2s.OtherApps and it does not match any category in the intent filter, so a run-time exception will be raised if you don't use the createChoose() method of the Intent class.
+
+Intent i = new Intent(android.content.Intent.ACTION_VIEW,Uri.parse ("http://www.java2s.com"));
+//i.addCategory("com.java2s.Apps");
+//this category does not match any in the intent-filter
+i.addCategory("com.java2s.OtherApps");
+startActivity(Intent.createChooser(i, "Open URL using..."));
