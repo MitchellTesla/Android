@@ -1,0 +1,29 @@
+You can specify an array of strings as a resource in any file under the /res/values subdirectory.
+
+Example
+You can use an XML node called string-array. This node is a child node of resources.
+
+The following code shows an example of an array in a resource file.
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+      <string name="hello">hello</string>
+      <string name="app_name">hello appname</string>
+      <string-array name="test_array">
+                 <item>one</item>
+                 <item>two</item>
+                 <item>three</item>
+      </string-array>
+</resources>
+Once you have this string-array resource definition, you can retrieve this array in the Java code as follows.
+
+// w  w  w .  ja v a  2  s.c  o  m
+//Get access to Resources object from an Activity
+Resources res = your_Activity.getResources();
+String strings[] = res.getStringArray(R.array.test_array);
+
+//Print strings
+for (String s: strings)
+{
+    Log.d("example", s);
+}
