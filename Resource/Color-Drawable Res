@@ -1,0 +1,44 @@
+In Android, an image is one type of a drawable resource.
+
+Android supports another drawable resource called a color-drawable resource, which is essentially a colored rectangle.
+
+Example
+To define a color rectangle, you define an XML element by the node name of drawable in any XML file in the /res/values subdirectory.
+
+The following code shows a couple of color-drawable resource examples.
+
+<resources>
+    <drawable name="red_rectangle">#f00</drawable>
+    <drawable name="blue_rectangle">#0000ff</drawable>
+    <drawable name="green_rectangle">#f0f0</drawable>
+</resources>
+
+The following code shows how you can use a color-drawable resource in Java.
+
+
+// Get a drawable
+ColorDrawable redDrawable = (ColorDrawable)
+         activity.getResources().getDrawable(R.drawable.red_rectangle);
+
+//Set it as a background to a text view
+textView.setBackgroundDrawable(redDrawable);
+
+
+
+ 
+
+Reference in resource
+The following code shows how you can use a color-drawable resource in layout resource.
+
+<resources>
+    <drawable name="red_rectangle">#f00</drawable>
+    <drawable name="blue_rectangle">#0000ff</drawable>
+    <drawable name="green_rectangle">#f0f0</drawable>
+</resources>
+
+The following resource file references the defined color drawable defined above.
+
+<TextView android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:textAlign="center"
+          android:background="@drawable/red_rectangle"/>
