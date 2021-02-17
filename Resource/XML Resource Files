@@ -1,0 +1,178 @@
+In Android we can use arbitrary XML files as resources.
+
+You can access the xml file from its generated resource IDs, by which you can localize these resource XML files.
+Therefore you can compile and store these XML files on the device efficiently.
+
+XML files need to be stored under the /res/xml subdirectory.
+
+Example
+The following code shows an example XML file called /res/xml/test.xml.
+
+<root>
+   <sub>
+      Hello World from an xml sub element
+   </sub>
+</root>
+The AAPT compiles this XML file before placing it in the application package.
+
+The following code shows how to use XmlPullParser to parse these files.
+
+Resources res = activity.getResources();
+XmlResourceParser xpp = res.getXml(R.xml.test);
+/*from   w  w  w. j a v  a2s.c o  m*/
+private String getEventsFromAnXMLFile(Activity activity) throws XmlPullParserException, IOException
+{
+   StringBuffer sb = new StringBuffer();
+   Resources res = activity.getResources();
+   XmlResourceParser xpp = res.getXml(R.xml.test);
+
+   xpp.next();
+   int eventType = xpp.getEventType();
+    while (eventType != XmlPullParser.END_DOCUMENT)
+    {
+        if(eventType == XmlPullParser.START_DOCUMENT)
+        {
+           System.out.println("Start document");
+        }
+        else if(eventType == XmlPullParser.START_TAG)
+        {
+           System.out.println("Start tag "+xpp.getName());
+        }
+        else if(eventType == XmlPullParser.END_TAG)
+        {
+           System.out.println("End tag "+xpp.getName());
+        }
+        else if(eventType == XmlPullParser.TEXT)
+        {
+           System.out.println("Text "+xpp.getText());
+        }
+        eventType = xpp.next();
+    }
+    return sb.toString();
+}
+
+
+
+ 
+
+Parse xml resource
+The following code shows how to Parse xml resource.
+
+Main activity xml layout
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent" 
+  android:layout_height="fill_parent" >
+  <TextView
+    android:id="@+id/selection"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+  />
+  <ListView
+    android:id="@android:id/list"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:drawSelectorOnTop="false"
+  />
+</LinearLayout>
+res/xml/words.cml
+
+<words>
+  <word value="lorem" />
+  <word value="ipsum" />
+  <word value="dolor" />
+  <word value="sit" />
+  <word value="amet" />
+  <word value="consectetuer" />
+  <word value="adipiscing" />
+  <word value="elit" />
+  <word value="morbi" />
+  <word value="vel" />
+  <word value="ligula" />
+  <word value="vitae" />
+  <word value="arcu" />
+  <word value="aliquet" />
+  <word value="mollis" />
+  <word value="etiam" />
+  <word value="vel" />
+  <word value="erat" />
+  <word value="placerat" />
+  <word value="ante" />
+  <word value="porttitor" />
+  <word value="sodales" />
+  <word value="pellentesque" />
+  <word value="augue" />
+  <word value="purus" />
+</words>
+Java code
+
+/***//from  ww  w .  j av a  2  s . c  o m
+  Copyright (c) 2008-2009 CommonsWare, LLC
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may
+  not use this file except in compliance with the License. You may obtain
+  a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.app.ListActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import java.io.InputStream;
+import java.util.ArrayList;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+public class MainActivity extends ListActivity {
+  TextView selection;
+  ArrayList<String> items=new ArrayList<String>();
+  
+  @Override
+  public void onCreate(Bundle icicle) {
+    super.onCreate(icicle);
+    setContentView(R.layout.main);
+    selection=(TextView)findViewById(R.id.selection);
+    
+    try {
+      XmlPullParser xpp=getResources().getXml(R.xml.words);
+      
+      while (xpp.getEventType()!=XmlPullParser.END_DOCUMENT) {
+        if (xpp.getEventType()==XmlPullParser.START_TAG) {
+          if (xpp.getName().equals("word")) {
+            items.add(xpp.getAttributeValue(0));
+          }
+        }
+        
+        xpp.next();
+      }
+    }
+    catch (Throwable t) {
+      Toast
+        .makeText(this, "Request failed: "+t.toString(), 4000)
+        .show();
+    }
+    
+    setListAdapter(new ArrayAdapter<String>(this,
+                            android.R.layout.simple_list_item_1,
+                            items));
+  }
+  
+  public void onListItemClick(ListView parent, View v, int position,
+                  long id) {
+    selection.setText(items.get(position).toString());
+  }
+}
