@@ -1,0 +1,64 @@
+Android uses content providers for abstracting data into services.
+
+Content providers play a significant role in sharing data between applications.
+
+Content providers makes data sources look like REST-enabled data providers, such as web sites.
+
+To retrieve data from a content provider or save data into a content provider, you will need to use a set of REST-like URIs.
+
+Example
+For example, if you were to retrieve a set of books from a content provider that is an encapsulation of a book database, you would need to use a URI like this:
+
+content://com.android.book.BookProvider/books
+To retrieve a specific book from the book database, you would need to use a URI like this:
+
+content://com.android.book.BookProvider/books/101
+Any application on the device can make use of these URIs to access and manipulate data.
+
+
+
+
+ 
+
+Architecture of Content Providers
+Each content provider on a device registers itself like a web site with a string called an authority.
+
+The authority string forms the basis of a set of URIs that this content provider can offer.
+
+This authority registration is defined in the AndroidManifest.xml file.
+
+Here are two examples of how you can register providers in AndroidManifest.xml:
+
+<provider android:name="SomeProvider"
+          android:authorities="com.your-company.SomeProvider" />
+
+<provider android:name="NotePadProvider"
+          android:authorities="com.google.provider.NotePad"/>
+
+An authority is like a domain name for that content provider.
+
+A content provider, like a web site, has a base domain name that acts as a starting URL.
+
+Given the preceding authority registration, these providers will take URLs starting with that authority prefix:
+
+content://com.your-company.SomeProvider/
+content://com.google.provider.NotePad/
+
+The providers offered by Android may not have a fully qualified authority name.
+
+For example, contacts as opposed to com.google.android.contacts.
+
+
+
+
+ 
+
+Content-provider vs Others
+Content-provider abstraction is required only if you want to share data externally or between applications.
+
+For internal data access, an application can use the following:
+
+Preferences: A set of key/value pairs that you can persist to store application preferences
+Files: Files internal to applications
+SQLite: SQLite databases
+Network : retrieve or store data externally through the Internet via HTTP services
