@@ -1,0 +1,30 @@
+An activity displays the user interface of your application, which may contain widgets such as buttons, labels, textboxes, and so on.
+
+Typically, you define your UI using an XML file, for example the main.xml file located in the res/layout folder of your project.
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+      <TextView
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="hello" />
+
+</LinearLayout>
+
+
+During runtime, you load the XML UI in the onCreate() method handler in your Activity class, using the setContentView() method of the Activity class:
+
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
+}
+During compilation, each element in the XML file is compiled into its equivalent Android GUI class, with attributes represented by methods.
+
+The Android system then creates the UI of the activity when it is loaded.
+
+The code above generates the following result.
