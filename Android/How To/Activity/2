@@ -1,0 +1,8 @@
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+
+public class Main {
+  public static void setScreenVertical(Activity activity) {
+    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+  }
+}
