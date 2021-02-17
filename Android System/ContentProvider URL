@@ -1,0 +1,48 @@
+Content providers provide REST-like URLs to retrieve or manipulate data.
+
+Content URIs in Android look similar to HTTP URIs, except that they start with content and have the general form
+
+content://*/*/*
+or
+
+content://authority-name/path-segment1/path-segment2/etc...
+Example
+The URI to identify a directory or a collection of notes in the NotePadProvider database is
+
+content://com.google.provider.NotePad/Notes
+The URI to identify a specific note is
+
+content://com.google.provider.NotePad/Notes/#
+where # is the id of a particular note.
+
+Here's an example URI that identifies a note numbered 9 in a database of notes:
+
+content://com.google.provider.NotePad/notes/9
+After content: the URI contains a unique identifier for the authority, which is used to locate the provider in the provider registry.
+
+In the preceding example, com.google.provider.NotePad is the authority portion of the URI.
+
+/notes/9 is the path section of the URI that is specific to each provider.
+
+The notes and 9 portions of the path section are called path segments.
+
+Each provider should interpret the path section and path segments of the URIs.
+
+
+
+
+ 
+
+Example 2
+The following code lists examples of URIs that some data providers accept:
+
+content://media/internal/images
+content://media/external/images
+content://contacts/people/
+content://contacts/people/9
+
+media (content://media) and contacts (content://contacts) don't have a fully qualified structure.
+
+A content provider's URIs also resemble the names of stored procedures in a database.
+
+The provider is also expected to alter content at this URI using any of the state-change methods: insert, update, or delete.
