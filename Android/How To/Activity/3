@@ -1,0 +1,14 @@
+import android.app.Activity;
+import android.view.Window;
+import android.view.WindowManager;
+
+class ActivityAttrUtils {
+  public static void setScreenBrightness(final Activity mActivity,
+      final float pScreenBrightness) {
+    final Window window = mActivity.getWindow();
+    final WindowManager.LayoutParams windowLayoutParams = window
+        .getAttributes();
+    windowLayoutParams.screenBrightness = pScreenBrightness;
+    window.setAttributes(windowLayoutParams);
+  }
+}
