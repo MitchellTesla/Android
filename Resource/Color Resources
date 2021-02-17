@@ -1,0 +1,47 @@
+You can use reference identifiers to indirectly reference colors.
+
+The color IDs are available under the your-package.R.color namespace.
+
+Android defines a base set of colors, which are accessible through the Android android.R.color namespace.
+
+Example
+The following shows some examples of specifying color in an XML resource file.
+
+<resources>
+    <color name="red">#f00</color>
+    <color name="blue">#0000ff</color>
+    <color name="green">#f0f0</color>
+    <color name="main_back_ground_color">#ffffff00</color>
+</resources>
+
+The entries above need to be in a file residing in the /res/values subdirectory.
+
+The name of the file can be anything you choose.
+
+The following code shows an example of using a color resource in Java code.
+
+int mainBackGroundColor =  activity.getResources.getColor(R.color.main_back_ground_color);
+main_back_ground_color is defined in the resource file above.
+
+
+
+
+ 
+
+Use color resource in a view definition
+As string resource, we can reference color resource in layout.
+
+The following code shows how you can use a color resource in a view definition.
+
+<resources>
+    <color name="red">#f00</color>
+    <color name="blue">#0000ff</color>
+    <color name="green">#f0f0</color>
+    <color name="main_back_ground_color">#ffffff00</color>
+</resources>
+The following code shows how to use defined color in layout resource.
+
+<TextView android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:textColor="@color/red"
+          android:text="Sample Text to Show Red Color"/>
