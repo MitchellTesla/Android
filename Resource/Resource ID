@@ -1,0 +1,23 @@
+When you write
+
+<TextView android:id="@+id/text1" ..../>
+Its meaning is, "Use text1 to reference this instanceof TextView."
+
+The + indicates that if the id of text1 is not defined as a resource, go ahead and define it with a unique number.
+
+Define Your Own Resource IDs
+It is possible to create IDs and use them in your own application.
+
+IDs are treated as resources.
+
+We can use a resource tag called item to define an ID without attaching to any particular resource as the following example.
+
+<resources>
+   <item type="id" name="text"/>
+</resources>
+
+The type refers to the type of resource id in this case. Once this ID is in place, the View definition in the following will work.
+
+<TextView android:id="@id/text">
+..
+</TextView>
