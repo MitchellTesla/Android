@@ -1,0 +1,20 @@
+/*from w  w w  . j  av a2s  . c o m*/
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
+public class Main {
+  public static Account getAccountByNameAndType(Context context, String type, String name){    
+    Account[] accounts = getAccountsByType(context, type);
+      final int size = accounts.length;
+      for (int i = 0; i < size; i++) {
+        if (accounts[i].name.equals(name))
+          return accounts[i];
+      }
+      return null;
+  }
+  public static Account[] getAccountsByType(Context context, String type){
+    final AccountManager manager = AccountManager.get(context);
+      final Account[] accounts = manager.getAccountsByType(type);      
+      return accounts;
+  }
+}
