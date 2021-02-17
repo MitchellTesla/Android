@@ -1,0 +1,26 @@
+Android generates resource IDs for image files placed in the /res/drawable subdirectory.
+
+The supported image types include .gif, .jpg, and .png. Each image file in this directory generates a unique ID from its base file name.
+
+If the image file name is sample_image.jpg, then the resource ID generated is R.drawable.sample_image.
+
+You will get an error for two file names with the same base file name. The subdirectories underneath /res/drawable are ignored.
+
+Example
+The following code shows how to use the image resource in XML layout definitions.
+
+<Button
+      android:id="@+id/button1"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="Dial"
+      android:background="@drawable/sample_image"
+/>
+The following code shows how to retrieve an image in Java and set it to a UI object like a button.
+
+BitmapDrawable d = activity.getResources().getDrawable(R.drawable.sample_image);
+button.setBackgroundDrawable(d);
+
+//or you can set the background directly from the Resource Id
+button.setBackgroundResource(R.drawable.sample_image);
+Android also supports a special type of image called a stretchable image
