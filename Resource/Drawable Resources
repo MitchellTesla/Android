@@ -1,0 +1,25 @@
+Create rounded corners in your Drawable
+To achieve the rounded corners in your Drawable, you can use the currently undocumented <shape> tag.
+
+This tag needs to reside in a file by itself in the /res/drawable directory.
+
+The following code shows how you can use the <shape> tag to define a rounded rectangle in a file called /res/drawable/my_rounded_rectangle.xml.
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#f0600000"/>
+    <stroke android:width="3dp" color="#ffff8080"/>
+    <corners android:radius="13dp" />
+    <padding android:left="10dp" 
+             android:top="10dp"
+             android:right="10dp" 
+             android:bottom="10dp" />
+</shape>
+You can then use this drawable resource as a background of the previous text view example, as follows.
+
+GradientDrawable roundedRectangle = (GradientDrawable)
+activity.getResources().getDrawable(R.drawable.my_rounded_rectangle);
+
+textView.setBackgroundDrawable(roundedRectangle);
+In the end, a bitmap image in the drawable subdirectory resolves to a BitmapDrawable class. A drawable resource value, such as one of the rectangles, resolves to a ColorDrawable.
+
+An XML file with a <shape> tag in it resolves to a GradientDrawable.
