@@ -1,0 +1,79 @@
+Android resources generalize configuration idea to any configuration of the device. Language is one configuration choice.
+
+Android allows you to pick different sets of layouts based on layout mode for the same resource ID.
+
+Android does this by using different directories for each configuration.
+
+Example
+When using the smart phone we can use it vertically or horizontally. The vertical mode is called the portrait mode and the horizontal mode the landscape mode.
+
+The following three main_layout.xml files are all for layout. Android will load the corresponding files.
+
+\res\layout\main_layout.xml
+\res\layout-port\main_layout.xml
+\res\layout-land\main_layout.xml
+
+
+
+
+ 
+
+Note
+Even though there are three separate layout files here, they all generate only one layout ID in R.java.
+
+This ID looks as follows:
+
+R.layout.main_layout
+When you retrieve the layout corresponding to this layout ID, you get the appropriate layout suitable for that device layout.
+
+The directory extensions -port and -land are called configuration qualifiers.
+
+These qualifiers are case insensitive and separated from the resource directory name with a hyphen (-).
+
+Resources in these configuration qualifier directories are called alternate resources.
+
+The resources in resource directories without the configuration qualifiers are called default resources.
+
+Resource configuration qualifiers
+Most of the available configuration qualifiers are listed as follows. New qualifiers may be added with newer APIs.
+
+car, desk: Type of docking.
+en-rUS: Language and region.
+keysexposed, keyssoft, keyshidden: Kind of keyboard.
+ldpi, mdpi, hdpi, xhdpi, nodpi, tvdpi: Screen density.
+long, notlong: Screen type.
+mccAAA: AAA is the mobile country code.
+mncAAA: AAA is the carrier/network code.
+navexposed, navhidden: Navigation keys hidden or exposed.
+night, notnight: Night or day.
+nokeys, qwerty, 12key: Number of keys.
+nonav, dpad, trackball, wheel: Type of navigation device.
+notouch, stylus, finger: Kind of screen.
+port, land: Portrait or landscape.
+small, normal, large, xlarge: Screen size.
+sw<N>dp, w<N>dp, h<N>dp: Smallest width, available width, available height.
+v3, v4, v7: API level.
+With qualifiers, you can have resource directories shown in the following code.
+
+\res\layout-mcc312-mnc222-en-rUS
+\res\layout-ldpi
+\res\layout-hdpi
+\res\layout-car
+
+
+
+
+ 
+
+Qualifiers precedence order
+Consider the directories as follows.
+
+\res\layout\main_layout.xml
+\res\layout-port\main_layout.xml
+\res\layout-en\main_layout.xml
+
+The layout file main_layout.xml is available in two additional variations: for the language or for the layout mode.
+
+Even in portrait mode, Android picks the layout from the layout-en directory, because the language variation comes before the orientation variation.
+
+Please note that string resources are based on individual IDs, whereas layout resources are file-based.
