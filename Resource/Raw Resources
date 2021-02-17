@@ -1,0 +1,199 @@
+Android allows raw files in addition to arbitrary XML files. These resources, placed in /res/raw folder.
+
+The raw files could be audio, video, or text files that require localization or references through resource IDs.
+
+These files are not compiled but are moved to the application package as they are.
+
+Each file has an identifier generated in R.java.
+
+Example
+If you were to place a text file at /res/raw/test.txt, you would be able to read that file using the following code.
+
+String getStringFromRawFile(Activity activity)
+throws IOException{
+   Resources r = activity.getResources();
+   InputStream is = r.openRawResource(R.raw.test);
+   String myText = workOnInputStream(is);
+   is.close();
+   return myText;
+}
+File names with duplicate base names generate a build error.
+
+
+
+
+ 
+
+Load and parse raw xml file
+The following code shows how to Load and parse raw xml file.
+
+Layout file
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent" 
+  android:layout_height="fill_parent" >
+  <TextView
+    android:id="@+id/selection"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+  />
+  <ListView
+    android:id="@android:id/list"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:drawSelectorOnTop="false"
+  />
+</LinearLayout>
+res/raw/words.xml
+
+<words>
+  <word value="lorem" />
+  <word value="ipsum" />
+  <word value="dolor" />
+  <word value="sit" />
+  <word value="amet" />
+  <word value="consectetuer" />
+  <word value="adipiscing" />
+  <word value="elit" />
+  <word value="morbi" />
+  <word value="vel" />
+  <word value="ligula" />
+  <word value="vitae" />
+  <word value="arcu" />
+  <word value="aliquet" />
+  <word value="mollis" />
+  <word value="etiam" />
+  <word value="vel" />
+  <word value="erat" />
+  <word value="placerat" />
+  <word value="ante" />
+  <word value="porttitor" />
+  <word value="sodales" />
+  <word value="pellentesque" />
+  <word value="augue" />
+  <word value="purus" />
+</words>
+Java code
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.app.ListActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import java.io.InputStream;
+import java.util.ArrayList;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+/*from   w ww . j  av a 2 s  .  c om*/
+public class MainActivity extends ListActivity {
+  TextView selection;
+  ArrayList<String> items=new ArrayList<String>();
+  
+  @Override
+  public void onCreate(Bundle icicle) {
+    super.onCreate(icicle);
+    setContentView(R.layout.main);
+    selection=(TextView)findViewById(R.id.selection);
+    
+    try {
+      InputStream in=getResources().openRawResource(R.raw.words);
+      DocumentBuilder builder=DocumentBuilderFactory
+                                .newInstance()
+                                .newDocumentBuilder();
+      Document doc=builder.parse(in, null);
+      NodeList words=doc.getElementsByTagName("word");
+      
+      for (int i=0;i<words.getLength();i++) {
+        items.add(((Element)words.item(i)).getAttribute("value"));
+      }
+      
+      in.close();
+    }
+    catch (Throwable t) {
+      Toast
+        .makeText(this, "Exception: "+t.toString(), 2000)
+        .show();
+    }
+    
+    setListAdapter(new ArrayAdapter<String>(this,
+                                  android.R.layout.simple_list_item_1,
+                                  items));
+  }
+  
+  public void onListItemClick(ListView parent, View v, int position,
+                  long id) {
+    selection.setText(items.get(position).toString());
+  }
+}
+/***
+  Copyright (c) 2008-2009 CommonsWare, LLC
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may
+  not use this file except in compliance with the License. You may obtain
+  a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+
+
+ 
+
+Static Resources
+Here is the three steps to use static resource:
+
+Put files to your package's res/raw folder
+Use the getResources() method from the Activity class to return a Resources object
+Use its openRawResource() method to open the file contained in the res/raw folder
+package com.java2s.myapplication3.app;
+//from   w  ww . j a v a 2 s . co m
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class MainActivity extends Activity {
+    EditText textBox;
+    static final int READ_BLOCK_SIZE = 100;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        textBox = (EditText) findViewById(R.id.txtText1);
+
+        InputStream is = this.getResources().openRawResource(R.raw.textfile);
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String str = null;
+        try {
+            while ((str = br.readLine()) != null) {
+                Toast.makeText(getBaseContext(),
+                        str, Toast.LENGTH_SHORT).show();
+            }
+            is.close();
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+The resource ID of the resource stored in the res/raw folder is named after its filename without its extension. For example, if the text file is textfile.txt, then its resource ID is R.raw.textfile.
