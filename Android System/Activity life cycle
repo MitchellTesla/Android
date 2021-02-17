@@ -1,0 +1,100 @@
+The Activity base class defines a series of events that govern the life cycle of an activity.
+
+The life cycle of an Android application is strictly managed by the system.
+
+Android runs each application in a separate process, each of which hosts its own virtual machine.
+
+The Activity class defines the following events:
+
+onCreate() is called when the activity is first created
+onStart() is called when the activity becomes visible to the user
+onResume() is called when the activity starts interacting with the user
+onPause() is called when the current activity is being paused and the previous activity is being resumed
+onStop() is called when the activity is no longer visible to the user
+onDestroy() is called before the activity is destroyed by the system
+onRestart() is called when the activity has been stopped and is restarting again
+You do not need to react to all of these methods.
+
+
+
+
+ 
+
+Example
+package com.java2s.app;
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+/*from w  w  w .ja v  a  2s . com*/
+public class MainActivity extends Activity {
+    String tag = "java2s.com";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Log.d(tag, "In the onCreate() event");
+    }
+
+    public void onStart()
+    {
+        super.onStart();
+        Log.d(tag, "In the onStart() event");
+    }
+
+    public void onRestart()
+    {
+        super.onRestart();
+        Log.d(tag, "In the onRestart() event");
+    }
+
+    public void onResume()
+    {
+        super.onResume();
+        Log.d(tag, "In the onResume() event");
+    }
+
+    public void onPause()
+    {
+        super.onPause();
+        Log.d(tag, "In the onPause() event");
+    }
+
+    public void onStop()
+    {
+        super.onStop();
+        Log.d(tag, "In the onStop() event");
+    }
+
+    public void onDestroy()
+    {
+        super.onDestroy();
+        Log.d(tag, "In the onDestroy() event");
+    }
+}
+null
+
+
+
+ 
+
+Note
+When an activity is created for the first time, the onCreate() method is called.
+
+We can use onCreate() method to create the UI elements.
+
+An activity is destroyed when you click the Back button. You need to write additional code in your activity to preserve its state when it is destroyed.
+
+The onPause() method is called when an activity is sent to the background, as well as when it is killed when the user presses the Back button.
+
+When an activity is started, the onStart() and onResume() methods are always called, regardless of whether the activity is restored from the background or newly created.
+
+We should use the onCreate() method to create and instantiate the objects that you will be using in your application.
+
+We should use the onResume() method to start any services or code that needs to run while your activity is in the foreground.
+
+We should use the onPause() method to stop any services or code that does not need to run when your activity is not in the foreground.
+
+We should use the onDestroy() method to free up resources before your activity is destroyed.
+
+If an application has only one activity and the activity is killed, the application will still be running in memory.
