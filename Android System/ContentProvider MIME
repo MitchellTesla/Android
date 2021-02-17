@@ -1,0 +1,81 @@
+A content provider has an added responsibility to return the MIME type for a given URI.
+
+A content provider exposes internal data as a service. Its output is like a result set from a JDBC statement. The caller should know the structure of the rows and columns returned.
+
+A content provider allows you to determine the MIME type of the data represented by the URI.
+
+Example
+MIME types work in Android similarly to how they work in HTTP.
+
+You get the MIME type for a given URI from a provider.
+
+The MIME type returned is a two-part string identifying its MIME type according to the standard web MIME conventions.
+
+A MIME type has two parts: a type and a subtype. Here are some examples of well-known MIME-type pairs:
+
+text/html
+text/css
+text/xml
+text/vnd.curl
+application/pdf
+application/rtf
+application/vnd.ms-excel
+
+You can see a complete list of registered types and subtypes at the Internet Assigned Numbers Authority (IANA) web site:
+
+http://www.iana.org/assignments/media-types/
+
+
+
+ 
+
+Type and sub types
+The primary registered content types are
+
+application
+audio
+example
+image
+message
+model
+multipart
+text
+video
+Each of these primary types has subtypes.
+
+If a vendor has proprietary data formats, the subtype name begins with vnd.
+
+For example, Microsoft Excel spreadsheets are identified by the subtype vnd.ms-excel.
+
+Some subtypes start with x-; these are nonstandard subtypes that don't have to be registered.
+
+Here are a few examples:
+
+application/x-tar
+audio/x-aiff
+video/x-msvideo
+
+
+
+ 
+
+Android MIME type
+Android follows a similar convention to define MIME types.
+
+The vnd in Android MIME types indicates that these types and subtypes are nonstandard, vendor-specific forms.
+
+The Android MIME type for each content type has two forms: one for a specific record and one for multiple records.
+
+For a single record, the MIME type looks like this:
+
+vnd.android.cursor.item/vnd.yourcompanyname.contenttype
+For a collection of records or rows, the MIME type looks like this:
+
+vnd.android.cursor.dir/vnd.yourcompanyname.contenttype
+Here are a couple of examples:
+
+//One single note
+vnd.android.cursor.item/vnd.google.note
+
+//A collection or a directory of notes
+vnd.android.cursor.dir/vnd.google.note
