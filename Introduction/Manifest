@@ -1,0 +1,152 @@
+Each Android project has a manifest file.
+
+Example
+The following code has an example of AndroidManifest.xml file:
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.java2s.app" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.java2s.app.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+
+
+ 
+
+Note
+The AndroidManifest.xml file contains detailed information about the application:
+
+It defines the package name of the application as com.java2s.HelloWorld.
+
+The version code of the application is 1 setting via the android:versionCode attribute. This value identifies the version number of your application. It can be used to programmatically determine whether an application needs to be upgraded.
+
+The version name of the application is 1.0 set via the android:versionName attribute. This string value is mainly used for display to the user. You should use the format <major>.<minor>.<point> for this value.
+
+The android:minSdkVersion attribute of the <uses-sdk> element specifies the minimum version of the OS on which the application will run.
+
+The application uses the image named ic_launcher.png located in the drawable folders.
+
+The name of this application is the string named app_name defined in the strings.xml file.
+
+There is one activity in the application represented by the HelloWorldActivity.java file. The label displayed for this activity is the same as the application name.
+
+Within the definition for this activity, there is an element named <intent-filter>:
+
+The action for the intent filter is named android.intent.action.MAIN.
+And it indicates that this activity serves as the entry point for the application.
+The category for the intent-filter is named android.intent.category.LAUNCHER. And it indicates that the application can be launched from the device's launcher icon.
+Every activity you have in your application must be declared in your AndroidManifest.xml file.
+
+
+
+
+ 
+
+Set target SDK version
+We can set target SDK version in manifest xml file.
+
+<manifest ...
+
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+The code above sets the target SDK version by using the <uses-sdk> tag as follows.
+
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="15" />
+Set the min Sdk Version
+In the manifest file we can Set the minSdkVersion.
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest ...
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="4" />
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+The code above sets the minSdkVersion by using the <uses-sdk> tag as follows:
+
+<uses-sdk android:minSdkVersion="4" />
+Turn off soft input panel
+Get EditText to automatically have the focus, but you do not want the soft input panel (keyboard) to appear automatically which happens on a real device.
+
+To prevent the keyboard from appearing, add the following attribute to the <activity> element in the AndroidManifest.xml file:
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest ...
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="4" />
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" 
+            android:windowSoftInputMode="stateHidden" 
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+The code above turns off the soft input panel by using the attribute in <activity> tag as follows.
+
+        <activity
+             ...
+            android:windowSoftInputMode="stateHidden" 
+        >
