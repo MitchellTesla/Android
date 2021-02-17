@@ -1,0 +1,29 @@
+Android - is a mobile operating system that is based on a modified version of Linux.
+Most of the Android code was released under the open source Apache License.
+
+
+Architecture of Android
+The Android OS is roughly divided into five sections in four main layers:
+
+Linux kernel - This is the kernel on which Android is based.
+Libraries - These contain all the code that provides the main features of an Android OS.
+Android runtime - At the same layer as the libraries, the Android runtime provides a set of core libraries that enable developers to write Android apps using the Java programming language.
+Application framework - Exposes the various capabilities of the Android OS to application developers so that they can make use of them in their applications.
+Applications - Applications that ship with the Android device, as well as applications that you download and install from the Android Market. Any applications that you write are located at this layer.
+
+
+
+Features of Android
+There are no fixed hardware or software configurations. However, Android itself supports the following features:
+
+Storage - Uses SQLite, a lightweight relational database, for data storage.
+Connectivity - Supports GSM/EDGE, IDEN, CDMA, EV-DO, UMTS, Bluetooth, Wi-Fi, LTE, and WiMAX.
+Messaging - Supports both SMS and MMS.
+Web browser - Based on the open source WebKit, together with Chrome's V8 JavaScript engine
+Media support - Includes support for the following media: H.263, H.264, MPEG-4 SP, AMR, AMR-WB, AAC, HE-AAC, MP3, MIDI, Ogg Vorbis, WAV, JPEG, PNG, GIF, and BMP
+Hardware support - Accelerometer Sensor, Camera, Digital Compass, Proximity Sensor, and GPS
+Multi-touch - Supports multi-touch screens
+Multi-touch - Supports multi-touch screens
+Multi-tasking - Supports multi-tasking applications
+Tethering - Supports sharing of Internet connections as a wired/wireless hotspot
+
