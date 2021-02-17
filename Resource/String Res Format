@@ -1,0 +1,222 @@
+Plurals Resource
+The resource plurals has a list of strings for expressing a numerical quantity in various ways.
+
+For example:
+
+There is 1 student.
+There are 2 students.
+There are 20 students.
+Android allows you to represent this variation as a plurals resource.
+
+The following example shows how you would represent these two variations based on quantity in a resource file.
+
+<resources...>
+   <plurals name="my_text">
+      <item quantity="one">There is 1 student</item>
+      <item quantity="other">There are %d students</item>
+   </plurals>
+</resources>
+The first parameter to the getQuantityString() method is the plurals resource ID. The second parameter selects the string to be used.
+
+When the value of the quantity is 1, you use the string as is. When the value is not 1, you must supply a third parameter whose value is to be placed where %d is.
+
+Resources res = your-activity.getResources();
+String s1 = res.getQuantityString(R.plurals.my_text, 0,0);
+String s2 = res.getQuantityString(R.plurals.my_text, 1,1);
+String s3 = res.getQuantityString(R.plurals.my_text, 2,2);
+String s4 = res.getQuantityString(R.plurals.my_text, 10,10);
+
+
+
+ 
+
+Java format string
+The Android string resource definitions allow standard Java string-formatting sequences.
+
+The following code defines Java format string which we can use in the Java code.
+
+This XML string resource file needs to be in the /res/values subdirectory.
+
+<resources>
+    <string name="simple_string">simple string</string>
+    <string name="java_format_string">
+           Hi %2$s Java format string. %1$s again
+     </string>
+</resources>
+The following code shows how to use Java format string in Java code.
+
+String simpleString = activity.getString(R.string.simple_string);
+textView.setText(simpleString);
+
+String javaFormatString = activity.getString(R.string.java_format_string);
+
+String substitutedString = String.format(javaFormatString, "Hello" , "Android");
+
+textView.setText(substitutedString);
+java_format_string is defined in the resource xml file. We use the Activity.getString to load the string to Java code.
+
+
+
+
+ 
+
+HTML strings
+Android allows child XML elements such as <b>, <i>, and other simple text-formatting HTML within the <string> node.
+
+You can use this compound HTML string to style the text before painting in a text view.
+
+The following XML string resource file needs to be in the /res/values subdirectory.
+
+<resources>
+    <string name="simple_string">simple string</string>
+     <string name="tagged_string">
+         Hello <b><i>Android</i></b>, You are bold.
+     </string>
+</resources>
+
+
+The following java code shows how to use the html-formatted string.
+
+             
+String simpleString = activity.getString(R.string.simple_string);
+textView.setText(simpleString);
+
+String htmlTaggedString = activity.getString(R.string.tagged_string);
+
+Spanned textSpan = android.text.Html.fromHtml(htmlTaggedString);
+
+textView.setText(textSpan);
+HTML encode and decode
+The following code shows how to use the utilities calss for HTML encode and decode.
+
+Layout xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  >
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+    <Button android:id="@+id/format"
+      android:layout_width="wrap_content" 
+      android:layout_height="wrap_content"
+      android:text="OK"
+      />
+    <EditText android:id="@+id/name"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      />
+  </LinearLayout>
+  <TextView android:id="@+id/result"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    />
+</LinearLayout>
+res/values/strings.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="funky_format">My name is &lt;b&gt;%1$s&lt;/b&gt;</string>
+</resources>
+Java code
+
+/***/* ww w .  j  a  va  2 s  .  c om*/
+  Copyright (c) 2008-2009 CommonsWare, LLC
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may
+  not use this file except in compliance with the License. You may obtain
+  a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.Html;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+  EditText name;
+  TextView result;
+  
+  @Override
+  public void onCreate(Bundle icicle) {
+    super.onCreate(icicle);
+    setContentView(R.layout.main);
+    
+    name=(EditText)findViewById(R.id.name);
+    result=(TextView)findViewById(R.id.result);
+    
+    Button btn=(Button)findViewById(R.id.format);
+    
+    btn.setOnClickListener(new Button.OnClickListener() {
+      public void onClick(View v) {
+        applyFormat();
+      }
+    });
+  }  
+  private void applyFormat() {
+    String format=getString(R.string.funky_format);
+    String simpleResult=String.format(format,TextUtils.htmlEncode(name.getText().toString()));
+    result.setText(Html.fromHtml(simpleResult));
+  }
+}
+We use the TextUtils.htmlEncode method to do the html encoding.
+
+Quoted strings
+We can use Quoted strings in Android string resource file.
+
+The quoted strings need to be either escaped or placed in alternate quotes.
+
+The following XML string resource file needs to be in the /res/values subdirectory.
+
+<resources>
+    <string name="simple_string">simple string</string>
+    <string name="quoted_string">"quoted 'xyz' string"</string>
+    <string name="double_quoted_string">\"double quotes\"</string>
+</resources>
+The following java code shows how to use the resource file above.
+
+
+String simpleString = activity.getString(R.string.simple_string);
+textView.setText(simpleString);
+
+String quotedString = activity.getString(R.string.quoted_string);
+textView.setText(quotedString);
+
+String doubleQuotedString = activity.getString(R.string.double_quoted_string);
+textView.setText(doubleQuotedString);
+From the code above we can see that there are two ways to add quotations to a string.
+
+Use multiple string resource files
+To see that multiple string resource files are allowed in this subdirectory, you can place another file with the following content in the same subdirectory and call it strings1.xml.
+
+We can have one string resourde defined as follows.
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">hello</string>
+    <string name="app_name">hello appname</string>
+</resources>
+Example of an Additional strings.xml File.
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello1">hello 1</string>
+    <string name="app_name1">hello appname 1</string>
+</resources>
+The Eclipse ADT plug-in validates the uniqueness of these IDs at compile time and places them in R.java as two additional constants: R.string.hello1 and R.string.app_name1.
