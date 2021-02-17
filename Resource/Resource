@@ -1,0 +1,42 @@
+The following list has some of the key resources.
+
+Resource Type: Colors
+Location: /res/values/any-file
+Resource Type: Strings
+Location: /res/values/any-file
+Resource Type: String arrays
+Location: /res/values/any-file
+Resource Type: Plurals
+Location: /res/values/any-file
+Resource Type: Dimensions
+Location: /res/values/any-file
+Resource Type: Images
+Location: /res/drawable/multiple-files
+Resource Type:Color drawables
+Location: /res/values/any-file or /res/drawable/multiple-files
+Resource Type: Arbitrary XML files
+Location: /res/xml/*.xml
+Resource Type:Arbitrary raw resources
+Location:/res/raw/*.*
+Resource Type:Arbitrary raw assets
+Location:/assets/*.*/*.*
+
+
+
+ 
+
+Compiled and Uncompiled Android Resources
+Android supports resources primarily through two types of files: XML files and raw files. The raw files might be images, audio, and video.
+
+Some of the XML file gets compiled into binary format, and the other is copied as-is to the device.
+
+For example, string resource XML files and layout resource XML files are compiled into binary format before becoming part of the installable package.
+These XML files have predefined formats where XML nodes can be translated to IDs.
+
+You can compile your own strutured XML to binary formats and use the power of localization. To do this, you can place these XML files in the /res/xml/ subdirectory. In this case, you would use Android-supplied XML readers to read the XML nodes.
+
+But if you place files, including XML files, in the /res/raw/ directory instead, they don't get compiled into binary format. However, because it's a resource, Android generates an ID through R.java.
+
+The resource type for raw files is raw and we can access these file identities through R.raw.some-filename-minus-extension. But, you must use explicit stream-based APIs to read these files. Audio and video files fall into this category.
+
+Since the raw directory is part of the /res/* hierarchy, even these raw audio and video files can use localization and ID generation like all other resources.
