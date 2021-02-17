@@ -1,0 +1,42 @@
+Resource files are stored in various subdirectories based on their type under /res folder.
+
+Folder
+Here are some important subdirectories in the /res folder and the types of resources they host:
+
+anim: Compiled animation files
+drawable: Bitmaps
+layout: UI and view definitions
+values: Arrays, colors, dimensions, strings, and styles
+xml: Compiled arbitrary XML files
+raw: Noncompiled raw files
+
+
+
+ 
+
+Note
+The resource compiler in the Android Asset Packaging Tool (AAPT) compiles all the resources except the raw resources and places them into the final .apk file.
+apk stands for Android package.
+
+This .apk file, which contains the Android application's code and resources, correlates to Java's .jar file.
+
+The .apk file is what gets installed onto the device.
+
+XML resource parser allows resource names such as hello-string, but you will see a compile-time error in R.java. You can fix this by renaming your resource hello_string.
+
+Resources Directory Structure
+The following code offers a quick look at the overall resources directory structure.
+
+/res/values/strings.xml
+/res/values/colors.xml
+/res/values/dimens.xml
+/res/values/attrs.xml
+/res/values/styles.xml
+/res/drawable/*.png *.jpg *.gif *.9.png
+/res/anim/*.xml
+/res/layout/*.xml
+/res/raw/*.*
+/res/xml/*.xml
+/assets/*.*/*.*
+
+Only the /assets directory can contain an arbitrary list of subdirectories. Every other directory can only have files at the level of that directory.
