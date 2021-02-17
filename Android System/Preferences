@@ -1,0 +1,54 @@
+Android provides the SharedPreferences object to help you save simple application data.
+
+Using the SharedPreferences object, you save the data you want through the use of name/value pairs.
+
+In the following code, you learn how to use the SharedPreferences object to store application data.
+
+Example
+Create a file at res/xml/myapppreferences.xml and populate the myapppreferences.xml file as follows:
+
+         <?xml version="1.0" encoding="utf-8"?>
+         <PreferenceScreen
+             xmlns:android="http://schemas.android.com/apk/res/android">
+             <PreferenceCategory android:title="Category 1">
+                 <CheckBoxPreference
+                     android:title="Checkbox"
+                     android:defaultValue="false"
+                     android:summary="True or False"
+                     android:key="checkboxPref" />
+                 </PreferenceCategory>
+             <PreferenceCategory android:title="Category 2">
+                 <EditTextPreference
+                     android:summary="Enter a string"
+                     android:defaultValue="[Enter a string here]"
+                     android:title="Edit Text"
+                     android:key="editTextPref" />
+                 <RingtonePreference
+                     android:summary="Select a ringtone"
+                     android:title="Ringtones"
+                     android:key="ringtonePref" />
+                 <PreferenceScreen
+                     android:title="Second Preference Screen"
+                  android:summary= "Click here to go to the second Preference Screen"
+                  android:key="secondPrefScreenPref" >
+                  <EditTextPreference
+                      android:summary="Enter a string"
+                      android:title="Edit Text (second Screen)"
+                      android:key="secondEditTextPref" />
+              </PreferenceScreen>
+          </PreferenceCategory>
+      </PreferenceScreen>
+
+Java code
+
+import android.os.Bundle;
+import android.preference.PreferenceActivity;
+//from w ww  . j a  va  2 s. c om
+public class AppPreferenceActivity extends PreferenceActivity {
+     @Override
+     public void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         //load the preferences from an XML file
+         addPreferencesFromResource(R.xml.myapppreferences);
+     }
+}
