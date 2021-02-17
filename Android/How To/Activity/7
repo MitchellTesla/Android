@@ -1,0 +1,34 @@
+/*w  w  w .j a va 2s  .com*/
+import java.util.List;
+
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.content.ComponentName;
+import android.content.Context;
+public class Main{
+  /**
+   * Determines if this application is top activity
+   * @param context Context to be examined
+   * @return true if this application is a top activity; false otherwise
+   */
+  public static boolean isTopApplication(Context context) {
+    ComponentName activity = getTopActivity(context);
+    if (activity == null) {
+      return false;
+    }
+    return activity.getPackageName().equals(context.getApplicationInfo().packageName);
+  }
+  
+  private static ComponentName getTopActivity(Context context) {
+    ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+    if (am == null) {
+      return null;
+    }
+    List<RunningTaskInfo> info = am.getRunningTasks(1);
+    if (info == null) {
+      return null;
+    }
+    ComponentName activity = info.get(0).topActivity;
+    return activity;
+  }
+}
