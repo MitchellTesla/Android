@@ -1,0 +1,86 @@
+In Android, the view for a screen is often loaded from an XML file. These XML files are called layout resources.
+
+Example
+The following shows an example of a Layout File
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello" />
+
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello" />
+</LinearLayout>
+
+
+
+
+ 
+
+Note
+Each file in the /res/layout/ subdirectory generates a unique constant based on the name of the file with extension excluded.
+
+With layouts, what matters is the number of files. With string resources, what matters is the number of individual string resources inside the files.
+
+For example, if you have two files under /res/layout/ called file1.xml and file2.xml, then in R.java you have the following entries.
+
+public static final class layout {
+    //.... any other files
+    public static final int file1=0x7f030000;
+    public static final int file2=0x7f030001;
+    //....
+}
+
+
+
+ 
+
+Reference
+The views defined in these layout files, such as a TextView, are accessible in Java code through their resource IDs generated in R.java:
+
+TextView tv = (TextView)this.findViewById(R.id.text1);
+tv.setText("Try this text instead");
+The constant R.id.text1 corresponds to the ID defined for the TextView. The ID for the TextView in the layout file is as follows:
+
+<TextView android:id="@+id/text1"
+..
+</TextView>
+The value for the id attribute indicates that a constant called text1 is used to uniquely identify this view.
+
+The plus sign (+) in @+id/text1 means the ID text1 will be created if it doesn't exist already.
+
+Use string resource in layout resource
+Once you've defined the strings as resources, you can set them directly on a view.
+
+The following example shows an example where an HTML string is set as the text content of a TextView.
+
+The following code is for string.xml.
+
+<resources>
+    <string name="simple_string">simple string</string>
+    <string name="tagged_string">
+         Hello <b><i>Slanted Android</i></b>, You are bold.
+    </string>
+</resources>
+The following code is for layout.xml.
+
+
+<TextView android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:text="@string/tagged_string"/>
+
+
+The TextView automatically realizes that this string is an HTML string and honors its formatting accordingly.
+
+Next »
