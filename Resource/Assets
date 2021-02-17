@@ -1,0 +1,180 @@
+Android offers one more directory for you to store resource files: /assets.
+
+/assets is at the same level as /res.
+
+The files in /assets do not generate IDs in R.java. You must specify the file path to read them.
+
+The file path is a relative path starting at /assets.
+
+Example
+You use the AssetManager class to access these files.
+
+String getStringFromAssetFile(Activity activity)
+{
+   AssetManager am = activity.getAssets();
+   InputStream is = am.open("test.txt");
+   String s = convertStreamToString(is);
+   is.close();
+   return s;
+}
+
+
+
+ 
+
+Load an HTML file located in the assets folder
+The following code shows how to load an HTML file located in the assets folder.
+
+Main layout xml file
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+      android:orientation="vertical" >
+
+  <WebView android:id="@+id/webview1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+
+</LinearLayout>
+
+In the MainActivity.java file, add the following statements:
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+/*from w ww .j  av  a 2s . c  om*/
+public class MainActivity extends Activity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+        WebView wv = (WebView) findViewById(R.id.webview1);
+        wv.loadUrl("file:///android_asset/Index.html");
+
+    }
+}
+
+
+
+ 
+
+Read and parse CSV file from asset folder
+The following code shows how to Read and parse CSV file from asset folder.
+
+Register permission for WRITE_EXTERNAL_STORAGE
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.java2s.myapplication3.app" >
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="java2s.com"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.java2s.myapplication3.app.MainActivity"
+            android:label="java2s.com"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+Java code for main activity
+
+package com.java2s.myapplication3.app;
+//from  www. ja  v a  2  s  .c  o m
+import android.app.Activity;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class MainActivity extends Activity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TextView tv = new TextView(this);
+        setContentView(tv);
+
+        try {
+            AssetManager manager = getAssets();
+            InputStream in = manager.open("data.csv");
+
+            ArrayList<Person> cooked = parse(in);
+            StringBuilder builder = new StringBuilder();
+            for(Person piece : cooked) {
+                builder.append(String.format("%s is %s years old, and likes the color %s",
+                        piece.name, piece.age, piece.color));
+                builder.append('\n');
+            }
+            tv.setText(builder.toString());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /* Simple CSV Parser */
+    private static final int COL_NAME = 0;
+    private static final int COL_AGE = 1;
+    private static final int COL_COLOR = 2;
+
+    private ArrayList<Person> parse(InputStream in) throws IOException {
+        ArrayList<Person> results = new ArrayList<Person>();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String nextLine = null;
+        while ((nextLine = reader.readLine()) != null) {
+            String[] tokens = nextLine.split(",");
+            if (tokens.length != 3) {
+                Log.w("CSVParser", "Skipping Bad CSV Row");
+                continue;
+            }
+            //Add new parsed result
+            Person current = new Person();
+            current.name = tokens[COL_NAME];
+            current.color = tokens[COL_COLOR];
+            current.age = tokens[COL_AGE];
+
+            results.add(current);
+        }
+        in.close();
+        return results;
+    }
+}
+class Person {
+    public String name;
+    public String age;
+    public String color;
+
+    public Person() { }
+}
+data.csv
+
+Jack,Red,12
+Jane,Black,13
+Jode,Brown,14
