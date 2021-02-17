@@ -1,0 +1,41 @@
+Pixels, inches, and points are all examples of dimensions that can play a part in XML layouts or Java code.
+
+Example
+The following code shows you can use dimension resources in XML.
+
+<resources>
+    <dimen name="mysize_in_pixels">1px</dimen>
+    <dimen name="mysize_in_dp">5dp</dimen>
+    <dimen name="medium_size">100sp</dimen>
+</resources>
+You can specify the dimensions in any of the following units:
+
+px: Pixels
+in: Inches
+mm: Millimeters
+pt: Points
+dp: Density-independent pixels based on a 160dpi screen
+sp: Scale-independent pixels
+The following code shows how to access the defined Dimension Resources.
+
+float dimen = activity.getResources().getDimension(R.dimen.mysize_in_pixels);
+mysize_in_pixels is defined in the resource file above.
+
+
+
+
+ 
+
+Use Dimension Resources in XML
+The following code has the definition for Dimension Resources in XML.
+
+<resources>
+    <dimen name="mysize_in_pixels">1px</dimen>
+    <dimen name="mysize_in_dp">5dp</dimen>
+    <dimen name="medium_size">100sp</dimen>
+</resources>
+The following xml layout resource references the dimensions defined above.
+
+<TextView android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/medium_size"/>
