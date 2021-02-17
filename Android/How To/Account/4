@@ -1,0 +1,25 @@
+import java.util.ArrayList;
+import java.util.List;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
+import android.util.Patterns;
+
+public class Main {
+    public static List<String> getDeviceAccountsEmailAddresses(final Context context) {
+        final ArrayList<String> retval = new ArrayList<String>();
+        for (final Account account : getAccounts(context)) {
+            final String name = account.name;
+            if (Patterns.EMAIL_ADDRESS.matcher(name).matches()) {
+                retval.add(name);
+                retval.add(name.split("@")[0]);
+            }
+        }
+        return retval;
+    }
+
+    private static Account[] getAccounts(final Context context) {
+        return AccountManager.get(context).getAccounts();
+    }
+}
