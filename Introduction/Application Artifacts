@@ -1,0 +1,61 @@
+Android applications have some artifacts that are required and some that are optional.
+
+An Android application is primarily made up of three pieces:
+
+application descriptor,
+a collection of various resources, and
+the application's source code.
+
+
+
+ 
+
+Artifacts
+AndroidManifest.xml
+Required:Yes
+The Android application descriptor file. This file defines the activities, content providers, services, and intent receivers of the application. You can also use this file to declaratively define permissions required by the application, as well as grant specific permissions to other applications.
+src
+Required:Yes
+A folder containing all of the source code of the application.
+assets
+Required:No
+An arbitrary collection of folders and files.
+res
+Required:Yes
+A folder containing the resources of the application. This is the parent folder of drawable, anim, layout, menu, values, xml, and raw.
+drawable
+Required:No
+A folder containing the images or image-descriptor files used by the application.
+animator
+Required:No
+A folder containing the XML files that describe the animations used by the application.
+layout
+Required:No
+A folder containing views of the application.
+menu
+Required:No
+A folder containing XML files for menus in the application.
+values
+Required:No
+A folder containing other resources used by the application. For example, okstrings, arrays, styles, and colors.
+xml
+Required:No
+A folder containing additional XML files used by the application.
+raw
+Required:No
+A folder containing additional data required by the application.
+
+
+
+ 
+
+Note
+Android supports only a linear list of files within the predefined folders under res.
+
+For example, it does not support nested folders under the layout folder or the other folders under res. The files in raw are considered resources, and the files in assets are not.
+
+So the files in raw are localized, accessible through resource IDs, and so on.
+
+But the contents of the assets folder are considered general-purpose content to be used without resource constraints and support.
+
+You can put an arbitrary hierarchy of folders and files in assets folder.
