@@ -1,0 +1,13 @@
+import android.os.Environment;
+
+class ActivityUtils {
+  public static boolean canUseSdCard() {
+    try {
+      return Environment.getExternalStorageState().equals(
+          Environment.MEDIA_MOUNTED);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+}
