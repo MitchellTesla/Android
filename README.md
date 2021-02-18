@@ -1,5 +1,5 @@
 # Android
-Treat all od my repositories as a (Work in Progress) unless it is stated as a final or full release
+Treat all of my repositories as (Work in Progress) unless, it is stated as a final or full release
 
 
 About
