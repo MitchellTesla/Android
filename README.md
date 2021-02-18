@@ -3,4 +3,5 @@ Treat all of my repositories as (Work in Progress) unless, it is stated as a fin
 
 
 About
-a Deep dive into Android Programming , with How To Guides for Android and Android-UIs in construction. ~ Justin Mitchell 2021 release
+
+Deep dive into Android Programming ~ Justin Mitchell, with How To Guides for programming Android and Android-UIs under construction. ~ 2021 pre-release
